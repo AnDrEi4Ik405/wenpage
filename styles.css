@@ -67,12 +67,30 @@ navlk{
     padding: 10px 15px;
     
 }
-navbg {
+.navbg{
     list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
+    margin-left: 65px; margin-top: 100px;
+    padding: 10px; padding-inline-start: 20px;
     background-color: #0c0c0c;
-    max-width: 350px;
-    
+    max-width: 280px;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: larger;
+    margin-bottom: 10px;
+    border-left-color: aliceblue; border-right-color: aliceblue;
+    border-top-left-radius: 7px; border-top-right-radius: 7px;
+    border-left-style:dotted; border-right-style: dotted;
+    position: sticky;
   }
+.active{
+    background-color: rgba(231, 231, 231, 0.219);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    border-top-left-radius: 10px; border-top-right-radius: 10px;
+}
+a{
+    text-decoration: none;
+    color: aliceblue;
+}
