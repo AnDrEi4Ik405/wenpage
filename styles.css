@@ -16,6 +16,19 @@ body{
    font-size: medium;
 
 }
+.about{
+    background-color: black;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+    border-top-left-radius: 7px; border-top-right-radius: 7px;
+    padding: 0.5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 200px;
+    margin: 3px 550px;
+    position: relative;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: medium;
+}
 .p1{
     text-align: left;
     border: 10px; border-radius: 10px;
@@ -43,7 +56,7 @@ body{
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     max-width: 400px;
-    margin-right: 65px; margin-top: 1px;
+    margin: 1px 15px;
     float: right;
     position: relative;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
