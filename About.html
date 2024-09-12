@@ -19,29 +19,158 @@
 
 
 <body>
-
-    <div class="devlog">
-        <h1 style="color: white; text-align:center"><b>Devlog</b></h1>
-        </div>
-
         
 
-        <div class="navbg"><table>
-            <tr>
-            
-            <th style="color: aliceblue; padding: 1px 20px;"><a href="main.html"> <li>Home</li></a></th>
-            
-            <th class="active" style="color: aliceblue; padding: 1px 20px;">About</th>
-            
-            <th style="color: aliceblue; padding-left: 10px;">
-                <a id="github" href="https://github.com/AnDrEi4Ik405/wenpage"> <button type="button" onclick="alert('Redirecting to Github')">Github</button></a></th>
-            
-        </tr>
-            
-            
-    
-        </table></div>
+        <div class="container1">
 
+            <div class="navbg"><table>
+                <tr>
+                
+                <th style="color: aliceblue; padding: 1px 20px;"><li><a href="main.html" >Home</a></li></th>
+                
+                <th class="active" style="color: aliceblue; padding: 1px 20px;">About</th>
+                
+                <th style="color: aliceblue; padding-left: 10px;">
+                    <a id="github" href="https://github.com/AnDrEi4Ik405/wenpage"> <button type="button" onclick="alert('Redirecting to Github')">Github</button></a></th>
+                
+            </tr>
+                
+               
+        
+            </table></div>
+            
+            
+            <div class="themeswL">
+                <table>
+                <tr>
+        
+                <th><a><li><img src="https://img.icons8.com/?size=100&id=101342&format=png&color=000000" alt="Dark" height="=40px" width="40px"></li></a></th>
+        
+                <th><a><li><img src="https://img.icons8.com/?size=100&id=9313&format=png&color=000000" alt="Light" height="45px" width="45px"></li></a></th>
+                </tr>
+                </table>
+            </div>
+                <button class="logreg" id="showLoginFormButton"><img src="https://img.icons8.com/?size=100&id=K5bOaoSkbg1n&format=png&color=000000" alt="Login / Register" height="40px" width="40px"></button>
 
+        <div id="loginModal" class="modal">
+            <div class="modal-content">
+                <span id="closeModal" class="close">&times;</span>
+                <h2>Log In / Register</h2>
+                <form id="loginForm">
+                    <input  class="pass" type="text" id="loginUsername" placeholder="Username" required><br><br>
+                   <input class="pass" type="password" id="loginPassword" placeholder="Password" required><br><br>
+                    <button class="log" type="submit">Log In / Register</button>
+                </form>
+            </div>
+        </div>
+ 
+        </div>
 
+        <div id="userOutput"></div>
+
+        <script type="module">
+            // Import the functions you need from the SDKs you need
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+            import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
+          
+            // Your web app's Firebase configuration
+            const firebaseConfig = {
+              apiKey: "AIzaSyB97OgC7S5023gECey5CsLAWRpkl1b7-jM",
+              authDomain: "wenpage-e4e81.firebaseapp.com",
+              databaseURL: "https://wenpage-e4e81-default-rtdb.europe-west1.firebasedatabase.app",
+              projectId: "wenpage-e4e81",
+              storageBucket: "wenpage-e4e81.appspot.com",
+              messagingSenderId: "554830142906",
+              appId: "1:554830142906:web:52f554423999def11ed183",
+              measurementId: "G-SW9HKWDJCM"
+            };
+          
+            // Initialize Firebase
+            const app = initializeApp(firebaseConfig);
+            const database = getDatabase(app);
+      
+            // Function to check if user exists, and if not, register them
+            const loginOrRegisterUser = (username, password) => {
+              const dbRef = ref(database);
+      
+              get(child(dbRef, `users/${username}`)).then((snapshot) => {
+                if (snapshot.exists()) {
+                  const userData = snapshot.val();
+                  if (userData.password === password) {
+                    alert("Logged in successfully!");
+                    showUser(username);
+                  } else {
+                    alert("Incorrect password.");
+                  }
+                } else {
+                  // User doesn't exist, register them
+                  registerUser(username, password);
+                }
+              }).catch((error) => {
+                console.error("Error fetching user data:", error);
+              });
+            };
+      
+            // Function to register a new user in Firebase Realtime Database
+            const registerUser = (username, password) => {
+                set(ref(database, 'users/' + username), {
+                    password: password
+                }).then(() => {
+                    alert("User registered and logged in!");
+                    showUser(username);
+                }).catch((error) => {
+                    console.error("Error registering user:", error);
+                    alert("Failed to register user. Please try again.");
+                });
+            };
+      
+            // Function to display logged-in user and a logout button
+            const showUser = (username) => {
+              document.getElementById("loginModal").style.display = "none";
+              document.getElementById("userOutput").innerHTML = `
+               <div class="logged"> 
+                <p>Welcome, ${username}!</p>
+                <li><button id="logoutButton">Log Out</button></li></div>
+              `;
+      
+              document.getElementById("logoutButton").addEventListener("click", () => {
+                location.reload();  // Refresh the page to log out
+              });
+            };
+      
+            // Event listener for form submission
+            document.getElementById("loginForm").addEventListener("submit", (e) => {
+                e.preventDefault();  // Prevent form from submitting the traditional way
+      
+                const username = document.getElementById("loginUsername").value;
+                const password = document.getElementById("loginPassword").value;
+      
+                // Validate form inputs
+                if (!username || !password) {
+                    alert("Please fill out both username and password.");
+                    return;
+                }
+      
+                // Attempt to log in or register the user
+                loginOrRegisterUser(username, password);
+            });
+      
+            // Show the modal when "Log In / Register" button is clicked
+            document.getElementById("showLoginFormButton").addEventListener("click", () => {
+                document.getElementById("loginModal").style.display = "flex";  // Show the modal
+            });
+      
+            // Close the modal when the 'X' is clicked
+            document.getElementById("closeModal").addEventListener("click", () => {
+                document.getElementById("loginModal").style.display = "none";  // Hide the modal
+            });
+      
+            // Close the modal when clicking outside of the modal content
+            window.onclick = (event) => {
+                const modal = document.getElementById("loginModal");
+                if (event.target === modal) {
+                    modal.style.display = "none";  // Hide the modal
+                }
+            };
+          </script>
 </body>
