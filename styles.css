@@ -1,8 +1,18 @@
 body{
     background-color: rgb(233, 233, 233);
     font-family: sans-serif;
+    transition: background-color 0,6s ease, color 0,6s ease;
 }
-
+body.light-theme{
+    background-color: rgb(233, 233, 233);
+    font-family: sans-serif;
+    transition: background-color 0,6s ease, color 0,6s ease;
+}
+body.dark-theme{
+    background-color: darkgray;
+    font-family: sans-serif;
+    transition: background-color 0,6s ease, color 0,6s ease;
+}
 .devlog{
    background-color: black;
    border: 2px solid rgba(255, 255, 255, 0.8);
@@ -91,6 +101,25 @@ navlk{
     position: sticky; top: 0;   
     z-index: 1000;
   }
+
+  .navbg.light-theme{
+    list-style-type: none;
+    margin-left: 8px; margin-top: 20px; margin-right: 200px;
+    padding: 10px; padding-inline-start: 20px;
+    background-color: #ffffff;
+    max-width: 330px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: larger;
+    margin-bottom: 10px;
+    border-left-color: aliceblue; border-right-color: aliceblue;
+    border-top-left-radius: 7px; border-top-right-radius: 7px;
+    border-left-style:dotted; border-right-style: dotted;
+    position: sticky; top: 0;   
+    z-index: 1000;
+  }
+
 .active{
     background-color: rgba(231, 231, 231, 0.219);
     border-radius: 12px;
@@ -168,7 +197,10 @@ a{
     background-color: rgba(96, 96, 96, 0.219);
     backdrop-filter: blur(10px);
 }
-
+.themeswD {
+    background-color: #ffffff;
+    border-radius: 15px;
+}
 .container1 {
     display: flex;
     justify-content: space-between; /* Aligns islands with space between them */
